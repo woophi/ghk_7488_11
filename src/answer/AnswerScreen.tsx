@@ -30,7 +30,6 @@ const formatRub = (value: number) => (
 export const AnswerScreen = ({ question, answer, GaugeChartComponent, onBack, setAnswerData }: AnswerScreenProps) => {
   const stake = 100;
   const selectedCoeff = answer === 'yes' ? question.yesX : question.noX;
-  const commission = Math.round(stake * 0.02);
   const winAmount = Math.round(stake * selectedCoeff);
 
   return (
@@ -170,15 +169,6 @@ export const AnswerScreen = ({ question, answer, GaugeChartComponent, onBack, se
                 </Typography.Text>
                 <Typography.Text tag="span" view="primary-medium" weight="bold" className={answerSt.calcValue}>
                   × {selectedCoeff.toFixed(2)}
-                </Typography.Text>
-              </div>
-
-              <div className={answerSt.calcRow}>
-                <Typography.Text tag="span" view="secondary-large" color="secondary">
-                  Комиссия (2%)
-                </Typography.Text>
-                <Typography.Text tag="span" view="primary-medium" className={answerSt.calcValue}>
-                  − {formatRub(commission)}
                 </Typography.Text>
               </div>
 
