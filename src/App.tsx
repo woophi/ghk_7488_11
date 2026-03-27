@@ -63,7 +63,10 @@ const AnswerButton = ({ question, answer, setAnswerData }: AnswerButtonProps) =>
     <button
       className={tone === 'positive' ? appSt.answerButtonPositive : appSt.answerButtonNegative}
       type="button"
-      onClick={() => setAnswerData({ question, answer })}
+      onClick={() => {
+        window.gtag('event', '7488_answer_click', { question: question.question, answer, var: 'var11' });
+        setAnswerData({ question, answer });
+      }}
     >
       <Typography.Text tag="span" view="primary-medium" weight="bold" color={tone === 'positive' ? 'positive' : 'negative'}>
         {getAnswerText(answer)}
@@ -142,6 +145,7 @@ export const App = () => {
     if (!LS.getItem(LSKeys.UserId, null)) {
       LS.setItem(LSKeys.UserId, Date.now());
     }
+    window.gtag('event', '7488_selection_impression', { var: 'var11' });
   }, []);
 
   useEffect(() => {
@@ -199,7 +203,7 @@ export const App = () => {
           Используй свой кэшбэк
         </Typography.Text>
         <Typography.Text tag="p" view="primary-medium" defaultMargins={false} className={appSt.heroText}>
-          Ставь рубли кэшбека на реальные события. Угадал — получаешь больше баллов.
+          Ставь кэшбек на реальные события. Угадал — получаешь больше баллов.
         </Typography.Text>
       </div>
 

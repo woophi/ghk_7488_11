@@ -3,7 +3,7 @@ import { Typography } from '@alfalab/core-components/typography/cssm';
 import { ChevronLeftMIcon } from '@alfalab/icons-glyph/ChevronLeftMIcon';
 import { StarMIcon } from '@alfalab/icons-glyph/StarMIcon';
 import { UsersMIcon } from '@alfalab/icons-glyph/UsersMIcon';
-import { type ComponentType } from 'react';
+import { useEffect, type ComponentType } from 'react';
 import { QuestionGauge } from '../components/QuestionGauge';
 import { appSt } from '../style.css';
 import type { QuestionItem } from '../types';
@@ -32,7 +32,13 @@ export const AnswerScreen = ({ question, answer, GaugeChartComponent, onBack, se
   const selectedCoeff = answer === 'yes' ? question.yesX : question.noX;
   const winAmount = Math.round(stake * selectedCoeff);
 
+  useEffect(() => {
+    window.gtag('event', '7488_event_impression', { var: 'var11', question: question.question });
+  }, []);
+
   const submit = () => {
+    window.gtag('event', '7488_bet_click', { var: 'var11', question: question.question, answer, bet_size: String(stake) });
+
     window.location.replace(
       'alfabank://sdui_screen?screenName=InvestmentLongread&fromCurrent=true&shouldUseBottomSafeArea=true&endpoint=v1/invest-main-screen-view/investment-longread/98955%3flocation=AM%26campaignCode=GH',
     );
